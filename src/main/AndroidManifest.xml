@@ -1,0 +1,6 @@
+<!--
+  ~ Created by Piotr Kostecki on 4/18/19 2:47 PM
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="pl.piotrkostecki.changellyapiclient"/>
