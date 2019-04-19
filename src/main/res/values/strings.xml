@@ -1,7 +1,0 @@
-<!--
-  ~ Created by Piotr Kostecki on 4/18/19 2:47 PM
-  -->
-
-<resources>
-    <string name="app_name">Changelly API Client</string>
-</resources>
