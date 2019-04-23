@@ -4,13 +4,19 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/dependencies.gradle'
 
 buildscript {
     repositories {
+        google()
         jcenter()
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
     dependencies {
+        classpath "com.android.tools.build:gradle:3.4.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.30"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
@@ -22,16 +28,19 @@ android {
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             minifyEnabled true
+        }
+        buildTypes.each {
+            it.buildConfigField 'String', 'API_SECRET', API_SECRET
         }
     }
 
@@ -43,9 +52,25 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation apiDependencies.kotlinJdk
+
+    // Networking
+    implementation apiDependencies.retrofit
+    implementation apiDependencies.retrofitScalars
+    implementation apiDependencies.gson
+    implementation apiDependencies.gsonConverter
+    implementation apiDependencies.loggingInterceptor
+
+    // Reactive programming
+    implementation apiDependencies.rxKotlin
+    implementation apiDependencies.rxJava
+    implementation apiDependencies.rxAndroid
+    implementation apiDependencies.retrofitRxJavaAdapter
 
     // Testing
-    testImplementation changellyApiClientDependencies.junit
-    androidTestImplementation changellyApiClientDependencies.testRunner
-    androidTestImplementation changellyApiClientDependencies.espresso
+    testImplementation apiDependencies.junit
+    testImplementation apiDependencies.testCore
+    testImplementation apiDependencies.testRunner
+    testImplementation apiDependencies.mockito
+    androidTestImplementation apiDependencies.espresso
 }

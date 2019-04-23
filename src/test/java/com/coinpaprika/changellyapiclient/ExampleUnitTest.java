@@ -2,7 +2,7 @@
  * Created by Piotr Kostecki on 4/18/19 2:47 PM
  */
 
-package pl.piotrkostecki.changellyapiclient;
+package com.coinpaprika.changellyapiclient;
 
 import org.junit.Test;
 
