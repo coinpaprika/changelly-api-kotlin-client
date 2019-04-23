@@ -7,6 +7,6 @@ package com.coinpaprika.changellyapiclient.model
 data class JsonRpcRequest(
     val jsonrpc: String = "2.0",
     val method: String,
-    val params: MutableList<Any> = mutableListOf(),
+    val params: Map<Any, Any?> = mapOf(),
     val id: Long = System.currentTimeMillis()
 )

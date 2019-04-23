@@ -27,14 +27,12 @@ class ChangellyApiFactory {
                 createClient()
                     .addInterceptor { chain ->
                         val original = chain.request()
-
                         val request = original.newBuilder()
                             .header("sign", BuildConfig.API_SECRET.hmac())
-                            .header("api-key", "1056e43998d5436882a0b46e83077836")
+                            .header("api-key", BuildConfig.API_KEY)
                             .method(original.method(), original.body())
-                            .build();
-
-                        chain.proceed(request);
+                            .build()
+                        chain.proceed(request)
                     }
 //                    .addInterceptor(createLoggingInterceptor())
                     .build()
