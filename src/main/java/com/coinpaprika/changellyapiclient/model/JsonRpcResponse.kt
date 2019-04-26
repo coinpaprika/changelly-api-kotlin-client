@@ -4,4 +4,4 @@
 
 package com.coinpaprika.changellyapiclient.model
 
-data class JsonRpcResponse(val jsonrpc: String, val result: String, val id: Long)
+data class JsonRpcResponse(val jsonrpc: String, val result: Any, val id: Long)

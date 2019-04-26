@@ -68,6 +68,9 @@ dependencies {
     implementation apiDependencies.rxAndroid
     implementation apiDependencies.retrofitRxJavaAdapter
 
+    // Encoding
+    implementation apiDependencies.apacheCommonsCodec
+
     // Testing
     testImplementation apiDependencies.junit
     testImplementation apiDependencies.testCore

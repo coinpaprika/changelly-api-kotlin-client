@@ -34,6 +34,9 @@ ext {
     gsonVersion = '2.8.2'
     loggingInterceptorVersion = '3.9.1'
 
+    // Encoding
+    apacheCommonsCodecVersion = '1.8'
+
     // Testing
     jUnitVersion = '4.12'
     testCoreVersion = '1.1.0'
@@ -57,6 +60,9 @@ ext {
             gson:                   "com.google.code.gson:gson:${gsonVersion}",
             gsonConverter:          "com.squareup.retrofit2:converter-gson:${gsonConverterVersion}",
             loggingInterceptor:     "com.squareup.okhttp3:logging-interceptor:${loggingInterceptorVersion}",
+
+            // Encoding
+            apacheCommonsCodec:    "org.apache.directory.studio:org.apache.commons.codec:${apacheCommonsCodecVersion}",
 
             // Testing
             junit:                  "junit:junit:${jUnitVersion}",

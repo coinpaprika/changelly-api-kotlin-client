@@ -4,11 +4,17 @@
 
 package com.coinpaprika.changellyapiclient.extensions
 
-import java.security.MessageDigest
+import com.coinpaprika.changellyapiclient.BuildConfig
+import org.apache.commons.codec.binary.Hex
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 fun String.hmac(): String {
-    val bytes = this.toByteArray()
-    val md = MessageDigest.getInstance("SHA-256")
-    val digest = md.digest(bytes)
-    return digest.fold("", { str, it -> str + "%02x".format(it) })
+    val algorithm = "HmacSHA512"
+    val charsetName = "UTF-8"
+    val sha256HMAC = Mac.getInstance(algorithm)
+    val secretKey = SecretKeySpec(BuildConfig.API_SECRET.toByteArray(charset(charsetName)), algorithm)
+    sha256HMAC.init(secretKey)
+
+    return Hex.encodeHexString(sha256HMAC.doFinal(this.toByteArray(charset(charsetName))))
 }

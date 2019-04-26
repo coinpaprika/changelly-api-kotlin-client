@@ -12,12 +12,11 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import java.math.BigDecimal
 
-
 interface ChangellyApiContract {
-    @POST("")
+    @POST("/")
     fun getCurrencies(@Body request: JsonRpcRequest = JsonRpcRequest(method = "getCurrencies")): Observable<Response<JsonRpcResponse>>
 
-    @POST("")
+    @POST("/")
     fun getCurrenciesFull(@Body request: JsonRpcRequest = JsonRpcRequest(method = "getCurrenciesFull")): Observable<Response<JsonRpcResponse>>
 
     @POST("")

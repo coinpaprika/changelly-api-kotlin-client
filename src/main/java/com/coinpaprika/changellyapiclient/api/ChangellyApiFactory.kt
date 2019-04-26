@@ -6,6 +6,7 @@ package com.coinpaprika.changellyapiclient.api
 
 import com.coinpaprika.changellyapiclient.BuildConfig
 import com.coinpaprika.changellyapiclient.extensions.hmac
+import com.coinpaprika.changellyapiclient.extensions.string
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,14 +28,15 @@ class ChangellyApiFactory {
                 createClient()
                     .addInterceptor { chain ->
                         val original = chain.request()
+                        val sign = chain.request().body()!!.string().hmac()
                         val request = original.newBuilder()
-                            .header("sign", BuildConfig.API_SECRET.hmac())
+                            .header("sign", sign)
                             .header("api-key", BuildConfig.API_KEY)
                             .method(original.method(), original.body())
                             .build()
                         chain.proceed(request)
                     }
-//                    .addInterceptor(createLoggingInterceptor())
+                    .addInterceptor(createLoggingInterceptor())
                     .build()
             )
             .build()
