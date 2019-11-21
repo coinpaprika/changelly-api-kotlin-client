@@ -26,16 +26,7 @@ class ChangellyApiFactory {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(
                 createClient()
-                    .addInterceptor { chain ->
-                        val original = chain.request()
-                        val sign = chain.request().body()!!.string().hmac()
-                        val request = original.newBuilder()
-                            .header("sign", sign)
-                            .header("api-key", BuildConfig.API_KEY)
-                            .method(original.method(), original.body())
-                            .build()
-                        chain.proceed(request)
-                    }
+                    .addInterceptor(ApiInterceptor())
                     .addInterceptor(createLoggingInterceptor())
                     .build()
             )
